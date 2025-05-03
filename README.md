@@ -58,7 +58,8 @@ python manage.py migrate
 
 ### 5. Create Superuser
 ```bash
-python manage.py createsuperuser
+admin: rahul
+password: rahul@2005
 ```
 Follow prompts to set up an admin user.
 
