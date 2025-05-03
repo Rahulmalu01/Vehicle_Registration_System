@@ -1,51 +1,110 @@
 # Vehicle Registration System
-Here's a **brief overview** of your **Vehicle Registration System**:
+
+A Django-based web application for vehicle registration and management. This project allows administrators to manage vehicles and users, and allows regular users to register, log in, and interact with the system.
 
 ---
 
-### 🚗 **Vehicle Registration System – Overview**
-
-The **Vehicle Registration System** is a web-based application built using **Django (Python)** for backend and **HTML/CSS/JS (Bootstrap)** for frontend. It provides a platform for users to register, view, and manage vehicle data, while allowing administrators to control user accounts and maintain the vehicle database.
-
----
-
-### 🔧 **Core Features**
-
-#### 🧍‍♂️ **User Functionality**
-- **User Registration & Login**: Secure account creation and authentication.
-- **Vehicle Booking** *(optional if implemented)*: Users can browse and request available vehicles.
-
-#### 🛠️ **Admin Functionality**
-- **Admin Dashboard**: Add, edit, and delete vehicle entries.
-- **User Management**: View user list, update or delete user accounts (excluding admin).
-- **Vehicle Availability**: Mark vehicles as available/unavailable for use.
-
-#### 🚘 **Vehicle Data Management**
-- Each vehicle has:
-  - Name
-  - Type
-  - Fare
-  - Model Name
-  - Make
-  - Availability status (Yes/No)
+## Features
+- User registration and login
+- Admin dashboard to add, update, and delete vehicles
+- Vehicle list with search and filtering
+- User management (excluding admin user)
+- Clean, responsive UI with Bootstrap
 
 ---
 
-### 🧱 **Technology Stack**
-- **Backend**: Django + SQLite
-- **Frontend**: HTML, CSS (Bootstrap), JavaScript
-- **Admin Panel**: Custom Django views for user and vehicle management
-- **Security**: Django authentication, CSRF protection, user role management
+## Technologies Used
+- Python 3
+- Django 5.x
+- SQLite (default DB)
+- HTML/CSS/Bootstrap
+- JavaScript
+- [django-widget-tweaks](https://github.com/jazzband/django-widget-tweaks) for form styling
 
 ---
 
-### 📄 **Potential Enhancements**
-- Search/filter vehicles
-- Vehicle booking history
-- Email notifications
-- Role-based access control
-- REST API for mobile use
+## Setup Instructions
+
+### 1. Clone the Repository
+```bash
+git clone <repository_url>
+cd vehicle_registartion
+```
+
+### 2. Create and Activate Virtual Environment
+```bash
+python -m venv venv
+
+# Windows
+env\Scripts\activate
+# macOS/Linux
+source venv/bin/activate
+```
+
+### 3. Install Requirements
+```bash
+pip install -r requirements.txt
+```
+If `requirements.txt` is missing:
+```bash
+pip install django widget-tweaks
+```
+
+### 4. Apply Migrations
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+### 5. Create Superuser
+```bash
+python manage.py createsuperuser
+```
+Follow prompts to set up an admin user.
+
+### 6. Run the Development Server
+```bash
+python manage.py runserver
+```
+Visit: [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
 ---
 
-Would you like a diagram (e.g., architecture or ERD) to go along with this summary?
+## Admin Panel Access
+Visit: [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin) and log in using the superuser credentials.
+
+---
+
+## File Structure
+```
+vehicle_registartion/
+├── manage.py
+├── project_name/
+│   ├── settings.py
+│   ├── urls.py
+│   └── ...
+├── vehicles/
+│   ├── templates/vehicles/
+│   ├── views.py
+│   ├── urls.py
+│   ├── models.py
+│   └── forms.py
+└── static/
+```
+
+---
+
+## Notes
+- Make sure `widget_tweaks` is in your `INSTALLED_APPS`.
+- Static files may require `python manage.py collectstatic` for deployment.
+- To exclude the admin user from listings, filter by `is_superuser=False` in your views.
+
+---
+
+## License
+This project is licensed for educational and non-commercial use.
+
+---
+
+## Author
+Your Name - [rahulmalu111@gmail.com]
