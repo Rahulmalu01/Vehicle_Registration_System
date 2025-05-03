@@ -1,0 +1,12 @@
+<h2>Welcome, {{ username }}</h2>
+<ul>
+  {% if session.get('is_admin') %}
+    <li><a href="/admin">Admin Panel</a></li>
+  {% endif %}
+  <li><a href="/vehicles">View Vehicles</a></li>
+  <li><a href="/history">Booking History</a></li>
+  <li><a href="/profile">Profile</a></li>
+  <li><a href="/feedback">Feedback</a></li>
+  <li><a href="/chatbot">Chatbot Assistant</a></li>
+  <li><a href="/logout">Logout</a></li>
+</ul>

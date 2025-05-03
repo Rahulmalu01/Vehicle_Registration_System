@@ -1,0 +1,84 @@
+{% extends "vehicles/base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="container mt-5">
+  <h2 class="mb-4 text-center">Admin Dashboard</h2>
+  <div class="card shadow-sm mb-5 mx-auto" style="max-width: 600px;">
+    <div class="card-header bg-primary text-white text-center">
+      <h4>Add New Vehicle</h4>
+    </div>
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="vehicle_name" class="form-label fs-6 fw-semibold">Vehicle Name</label>
+          {{ form.name|add_class:"form-control form-control-sm" }}
+        </div>
+        <div class="mb-3">
+          <label for="vehicle_type" class="form-label fs-6 fw-semibold">Vehicle Type</label>
+          {{ form.vehicle_type|add_class:"form-control form-control-sm" }}
+        </div>
+        <div class="mb-3">
+          <label for="fare" class="form-label fs-6 fw-semibold">Fare</label>
+          {{ form.fare|add_class:"form-control form-control-sm" }}
+        </div>
+        <div class="mb-3">
+          <label for="model_name" class="form-label fs-6 fw-semibold">Model Name</label>
+          {{ form.model_name|add_class:"form-control form-control-sm" }}
+        </div>
+        <div class="mb-3">
+          <label for="make" class="form-label fs-6 fw-semibold">Make</label>
+          {{ form.make|add_class:"form-control form-control-sm" }}
+        </div>
+        <div class="mb-3 form-check">
+          {{ form.available }} 
+          <label class="form-check-label" for="available">
+            Available
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Add Vehicle</button>
+      </form>      
+    </div>
+  </div>
+  <!-- Vehicle List -->
+  <h3 class="mb-3 text-center">Vehicle List</h3>
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Fare</th>
+          <th>Model</th>
+          <th>Make</th>
+          <th>Available</th>
+          <th class="text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for vehicle in vehicles %}
+        <tr>
+          <td>{{ vehicle.name }}</td>
+          <td>{{ vehicle.vehicle_type }}</td>
+          <td>${{ vehicle.fare }}</td>
+          <td>{{ vehicle.model_name }}</td>
+          <td>{{ vehicle.make }}</td>
+          <td>
+            {% if vehicle.available %}
+              <span class="badge bg-success">Yes</span>
+            {% else %}
+              <span class="badge bg-danger">No</span>
+            {% endif %}
+          </td>
+          <td class="text-center">
+            <a href="{% url 'update_vehicle' vehicle.id %}" class="btn btn-sm btn-warning">Edit</a>
+            <a href="{% url 'delete_vehicle' vehicle.id %}" class="btn btn-sm btn-danger">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

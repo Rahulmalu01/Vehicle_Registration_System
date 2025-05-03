@@ -1,0 +1,16 @@
+<h2>Your Booking History</h2>
+<table border="1">
+<tr><th>Vehicle</th><th>Date</th><th>Status</th><th>Action</th></tr>
+{% for booking in bookings %}
+<tr>
+  <td>{{ booking.vehicle_name }}</td>
+  <td>{{ booking.date }}</td>
+  <td>{{ booking.status }}</td>
+  <td>
+    {% if booking.status == 'Booked' %}
+      <a href="/return/{{ booking.id }}">Return</a>
+    {% else %}Returned{% endif %}
+  </td>
+</tr>
+{% endfor %}
+</table>
