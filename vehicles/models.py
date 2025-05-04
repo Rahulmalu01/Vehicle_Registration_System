@@ -20,6 +20,8 @@ class Booking(models.Model):
     booking_date = models.DateTimeField(auto_now_add=True)
     return_date = models.DateTimeField(null=True, blank=True)
     fare = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    total_fare = models.FloatField(default=0)
+    paid = models.BooleanField(default=False)
 
     def calculate_fare(self, rate_per_hour=None):
         if self.return_date:

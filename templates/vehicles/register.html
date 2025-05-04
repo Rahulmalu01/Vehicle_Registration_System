@@ -15,6 +15,11 @@
                 </div>
 
                 <div class="mb-3">
+                    <label for="{{ form.email.id_for_label }}" class="form-label">Email</label>
+                    {{ form.email }}
+                </div>
+
+                <div class="mb-3">
                     <label for="{{ form.password1.id_for_label }}" class="form-label">Password</label>
                     {{ form.password1 }}
                 </div>
@@ -22,11 +27,6 @@
                 <div class="mb-3">
                     <label for="{{ form.password2.id_for_label }}" class="form-label">Confirm Password</label>
                     {{ form.password2 }}
-                </div>
-
-                <div class="mb-3">
-                    <label for="{{ form.email.id_for_label }}" class="form-label">Email</label>
-                    {{ form.email }}
                 </div>
 
                 <button type="submit" class="btn btn-primary w-100">Register</button>

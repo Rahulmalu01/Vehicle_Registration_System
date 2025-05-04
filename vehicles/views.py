@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm
+from django.contrib import messages
 
 def is_admin(user):
     return user.is_staff
@@ -70,22 +71,22 @@ def vehicle_list(request):
 
 @user_passes_test(is_admin)
 def admin_dashboard(request):
-    vehicles = Vehicle.objects.all()
-
     if request.method == 'POST':
         form = VehicleForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Vehicle added successfully!')
             return redirect('admin_dashboard')
     else:
         form = VehicleForm()
-
+    vehicles = Vehicle.objects.all()
     return render(request, 'vehicles/admin_dashboard.html', {'form': form, 'vehicles': vehicles})
 
 @user_passes_test(is_admin)
 def delete_vehicle(request, vehicle_id):
-    vehicle = get_object_or_404(Vehicle, id=vehicle_id)
+    vehicle = Vehicle.objects.get(id=vehicle_id)
     vehicle.delete()
+    messages.success(request, 'Vehicle deleted successfully!')
     return redirect('admin_dashboard')
 
 @user_passes_test(is_admin)
@@ -133,6 +134,16 @@ def return_vehicle(request, booking_id):
     booking.vehicle.save()
 
     return redirect('my_bookings')
+
+@login_required
+def payment_view(request, booking_id):
+    booking = get_object_or_404(Booking, id=booking_id, user=request.user)
+    amount_due = booking.total_fare  # Assuming this is calculated on return
+    if request.method == 'POST':
+        booking.paid = True
+        booking.save()
+        return redirect('my_bookings')  # Or any success page
+    return render(request, 'vehicles/payment.html', {'booking': booking, 'amount_due': amount_due})
 
 def logout_view(request):
     logout(request)
