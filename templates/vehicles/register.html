@@ -1,40 +1,61 @@
 {% extends 'vehicles/base.html' %}
 
 {% block content %}
-    <h2 class="text-center mb-4">Register</h2>
-    
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <form method="post" class="card p-4 shadow-sm">
-                {% csrf_token %}
-                
-                <!-- Render form fields -->
-                <div class="mb-3">
-                    <label for="{{ form.username.id_for_label }}" class="form-label">Username</label>
-                    {{ form.username }}
-                </div>
+<h2 class="text-center mb-4">Register</h2>
 
-                <div class="mb-3">
-                    <label for="{{ form.email.id_for_label }}" class="form-label">Email</label>
-                    {{ form.email }}
-                </div>
-
-                <div class="mb-3">
-                    <label for="{{ form.password1.id_for_label }}" class="form-label">Password</label>
-                    {{ form.password1 }}
-                </div>
-
-                <div class="mb-3">
-                    <label for="{{ form.password2.id_for_label }}" class="form-label">Confirm Password</label>
-                    {{ form.password2 }}
-                </div>
-
-                <button type="submit" class="btn btn-primary w-100">Register</button>
-            </form>
-
-            <div class="text-center mt-3">
-                <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form method="post" class="card p-4 shadow-sm">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="{{ form.username.id_for_label }}" class="form-label">Username</label>
+                {{ form.username }}
             </div>
+            <div class="mb-3">
+                <label for="{{ form.email.id_for_label }}" class="form-label">Email</label>
+                {{ form.email }}
+            </div>
+            <div class="mb-3">
+                <label for="{{ form.password1.id_for_label }}" class="form-label">Password</label>
+                {{ form.password1 }}
+                <div id="passwordHelp" class="form-text">
+                    Your password must contain:
+                </div>
+                <ul id="password-criteria" class="list-unstyled small text-muted">
+                    <li id="length" class="text-danger">✓ At least 8 characters</li>
+                    <li id="uppercase" class="text-danger">✓ One uppercase letter</li>
+                    <li id="number" class="text-danger">✓ One number</li>
+                    <li id="special" class="text-danger">✓ One special character (!@#$...)</li>
+                </ul>
+            </div>
+            <div class="mb-3">
+                <label for="{{ form.password2.id_for_label }}" class="form-label">Confirm Password</label>
+                {{ form.password2 }}
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Register</button>
+        </form>
+        <div class="text-center mt-3">
+            <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
         </div>
     </div>
+</div>
+<script>
+    const passwordInput = document.getElementById("id_password1");
+    const length = document.getElementById("length");
+    const uppercase = document.getElementById("uppercase");
+    const number = document.getElementById("number");
+    const special = document.getElementById("special");
+    passwordInput.addEventListener("input", function () {
+        const value = passwordInput.value;
+        length.classList.toggle("text-success", value.length >= 8);
+        length.classList.toggle("text-danger", value.length < 8);
+        uppercase.classList.toggle("text-success", /[A-Z]/.test(value));
+        uppercase.classList.toggle("text-danger", !/[A-Z]/.test(value));
+        number.classList.toggle("text-success", /[0-9]/.test(value));
+        number.classList.toggle("text-danger", !/[0-9]/.test(value));
+
+        special.classList.toggle("text-success", /[!@#$%^&*(),.?":{}|<>]/.test(value));
+        special.classList.toggle("text-danger", !/[!@#$%^&*(),.?":{}|<>]/.test(value));
+    });
+</script>
 {% endblock %}
