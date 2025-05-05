@@ -108,4 +108,6 @@ This project is licensed for educational and non-commercial use.
 ---
 
 ## Author
-Your Name - [rahulmalu111@gmail.com]
+Name - Rahul Malu
+Email - rahulmalu111@gmail.com
+ID - @Rahulmalu01
