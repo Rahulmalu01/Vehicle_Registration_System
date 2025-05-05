@@ -1,0 +1,41 @@
+{% extends 'vehicles/base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Pending Payments</h2>
+
+    {% if unpaid_bookings %}
+        <form method="post">
+            {% csrf_token %}
+            <table class="table table-bordered mt-4">
+                <thead>
+                    <tr>
+                        <th>Vehicle</th>
+                        <th>Booking Date</th>
+                        <th>Return Date</th>
+                        <th>Fare</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in unpaid_bookings %}
+                    <tr>
+                        <td>{{ booking.vehicle.name }}</td>
+                        <td>{{ booking.booking_date }}</td>
+                        <td>{{ booking.return_date }}</td>
+                        <td>${{ booking.fare }}</td>
+                        <td><a href="{% url 'payment' booking.id %}" class="btn btn-sm btn-success">Pay</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="d-flex justify-content-between">
+                <h5>Total Due: ${{ total_due }}</h5>
+                <button type="submit" class="btn btn-primary">Pay All</button>
+            </div>
+        </form>
+    {% else %}
+        <p>No unpaid bookings found.</p>
+    {% endif %}
+</div>
+{% endblock %}

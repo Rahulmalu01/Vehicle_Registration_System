@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib import messages
+from django.db.models import Sum
 
 def is_admin(user):
     return user.is_staff
@@ -128,22 +129,44 @@ def return_vehicle(request, booking_id):
     booking.return_date = timezone.now()
     booking.fare = booking.calculate_fare()
     booking.save()
-
-    # Make vehicle available again
     booking.vehicle.available = True
     booking.vehicle.save()
-
     return redirect('my_bookings')
+
 
 @login_required
 def payment_view(request, booking_id):
     booking = get_object_or_404(Booking, id=booking_id, user=request.user)
-    amount_due = booking.total_fare  # Assuming this is calculated on return
+    amount_due = booking.calculate_fare()
     if request.method == 'POST':
         booking.paid = True
         booking.save()
-        return redirect('my_bookings')  # Or any success page
-    return render(request, 'vehicles/payment.html', {'booking': booking, 'amount_due': amount_due})
+        return redirect('my_bookings')
+    return render(request, 'vehicles/payment.html', {'booking': booking,'amount_due': amount_due})
+
+@login_required
+def some_view(request):
+    context = {}
+    if request.user.is_authenticated and not request.user.is_staff:
+        latest_booking = Booking.objects.filter(user=request.user, paid=False).last()
+        context['latest_booking'] = latest_booking
+    return render(request, 'vehicles/home.html', context)
+
+@login_required
+def payment_due_list(request):
+    unpaid_bookings = Booking.objects.filter(user=request.user, paid=False, return_date__isnull=False)
+    
+    total_due = round((unpaid_bookings.aggregate(Sum('fare'))['fare__sum'] or 0), 2)
+
+    if request.method == 'POST':
+        unpaid_bookings.update(paid=True)
+        messages.success(request, "All pending payments have been marked as completed.")
+        return redirect('my_bookings')
+
+    return render(request, 'vehicles/payment_due_list.html', {
+        'unpaid_bookings': unpaid_bookings,
+        'total_due': total_due,
+    })
 
 def logout_view(request):
     logout(request)
