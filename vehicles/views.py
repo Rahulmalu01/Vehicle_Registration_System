@@ -3,11 +3,13 @@ from django.contrib.auth import login, authenticate, logout
 from .forms import RegisterForm, VehicleForm, BookingForm
 from .models import Vehicle, Booking
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.admin.views.decorators import staff_member_required
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib import messages
 from django.db.models import Sum
+from django.http import HttpResponseForbidden
 
 def is_admin(user):
     return user.is_staff
@@ -125,14 +127,41 @@ def my_bookings(request):
 
 @login_required
 def return_vehicle(request, booking_id):
-    booking = get_object_or_404(Booking, id=booking_id, user=request.user, return_date__isnull=True)
+    booking = get_object_or_404(Booking, id=booking_id)
+    if booking.is_returned:
+        return redirect('booking_list')
+    booking.is_returned = True
     booking.return_date = timezone.now()
     booking.fare = booking.calculate_fare()
     booking.save()
+    messages.success(request, "The vehicle has been successfully returned!")
+    return redirect('booking_list')
+
+@login_required
+def booking_list(request):
+    # Admin sees all bookings; regular users see their own
+    if request.user.is_staff:
+        bookings = Booking.objects.select_related('user', 'vehicle').all()
+    else:
+        bookings = Booking.objects.select_related('vehicle').filter(user=request.user)
+
+    return render(request, 'vehicles/booking_list.html', {'bookings': bookings})
+
+@login_required
+def mark_returned(request, booking_id):
+    booking = get_object_or_404(Booking, id=booking_id)
+    if not request.user.is_staff:
+        return HttpResponseForbidden("You are not authorized to mark this booking as returned.")
+    if booking.is_returned:
+        return HttpResponseForbidden("This vehicle has already been returned.")
+    booking.is_returned = True
+    booking.return_date = timezone.now()
+    booking.save()
     booking.vehicle.available = True
     booking.vehicle.save()
-    return redirect('my_bookings')
-
+    fare_to_pay = booking.calculate_fare()
+    messages.success(request, f"The vehicle {booking.vehicle.name} has been successfully marked as returned. The fare to be paid is ${fare_to_pay}.")
+    return redirect('booking_list')
 
 @login_required
 def payment_view(request, booking_id):

@@ -12,11 +12,13 @@ urlpatterns = [
     # Home/dashboard
     path('home/', views.home_view, name='home'),
     path('my_bookings/', views.my_bookings, name='my_bookings'),
+    path('bookings/', views.booking_list, name='booking_list'),
 
     # Vehicle routes
     path('vehicles/', views.vehicle_list, name='vehicle_list'),
-    path('return_vehicle/<int:booking_id>/', views.return_vehicle, name='return_vehicle'),
+    path('bookings/return/<int:booking_id>/', views.return_vehicle, name='return_vehicle'),
     path('vehicles/book/<int:vehicle_id>/', views.book_vehicle, name='book_vehicle'),
+    path('bookings/<int:booking_id>/return/', views.mark_returned, name='mark_returned'),
 
     # Admin dashboard and vehicle management
     path('admin_dashboard/', views.admin_dashboard, name='admin_dashboard'),
