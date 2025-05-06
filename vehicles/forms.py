@@ -22,12 +22,16 @@ class RegisterForm(UserCreationForm):
 class VehicleForm(forms.ModelForm):
     class Meta:
         model = Vehicle
-        fields = ['name', 'vehicle_type', 'available', 'fare', 'model_name', 'make']
-        widgets = {
-            'fare': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter fare'}),
-            'model_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter model name'}),
-            'make': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter make'}),
-        }
+        fields = '__all__'
+
+    def clean_image(self):
+        image = self.cleaned_data.get('image')
+        if image:
+            if not image.name.endswith('.jpg'):
+                raise forms.ValidationError("Only .jpg files are allowed.")
+            if image.size > 10 * 1024 * 1024:
+                raise forms.ValidationError("Image size should be less than 10MB.")
+        return image
 
 class BookingForm(forms.ModelForm):
     class Meta:

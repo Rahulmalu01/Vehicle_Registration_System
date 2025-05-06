@@ -3,19 +3,20 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from decimal import Decimal
 
+def vehicle_image_upload_path(instance, filename):
+    return f'img/{instance.make}_{instance.model_name}.jpg'
+
 class Vehicle(models.Model):
     make = models.CharField(max_length=100)
     model_name = models.CharField(max_length=100)
-    available = models.BooleanField(default=True)
-    fare = models.DecimalField(max_digits=10, decimal_places=2, default=50.00)
     name = models.CharField(max_length=100)
-    vehicle_type = models.CharField(max_length=100)
+    vehicle_type = models.CharField(max_length=50)
+    fare = models.DecimalField(max_digits=10, decimal_places=2)
+    available = models.BooleanField(default=True)
+    image = models.ImageField(upload_to=vehicle_image_upload_path, blank=True, null=True)
+
     def __str__(self):
-        return f"{self.make} {self.model_name} ({self.vehicle_type}) - {self.name}"
-    def save(self, *args, **kwargs):
-        if not self.available:
-            pass
-        super().save(*args, **kwargs)
+        return f"{self.make} {self.model_name}"
 
 class Booking(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)

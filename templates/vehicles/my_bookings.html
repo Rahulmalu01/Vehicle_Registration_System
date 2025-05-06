@@ -19,17 +19,17 @@
                 {% for booking in bookings %}
                 <tr>
                     <td>{{ booking.vehicle.name }}</td>
-                    <td>{{ booking.booking_date|date:"d M Y" }}</td>  <!-- Formatted Date -->
+                    <td>{{ booking.booking_date|date:"d M Y" }}</td>
                     <td>
                         {% if booking.return_date %}
-                            {{ booking.return_date|date:"d M Y" }}  <!-- Formatted Date -->
+                            {{ booking.return_date|date:"d M Y" }}
                         {% else %}
                             <span class="text-muted">Not yet returned</span>
                         {% endif %}
                     </td>
                     <td>
                         {% if booking.fare %}
-                            ₹{{ booking.fare|floatformat:2 }}  <!-- Formatted Fare -->
+                            ₹{{ booking.fare|floatformat:2 }}
                         {% else %}
                             <span class="text-warning">Pending</span>
                         {% endif %}

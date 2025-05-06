@@ -1,0 +1,43 @@
+{% extends "vehicles/base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+<div class="container mt-5">
+  <h2 class="mb-4 text-center text-primary">Add New Vehicle</h2>
+  <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label class="form-label">Make</label>
+          {{ form.make|add_class:"form-control" }}
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Model Name</label>
+          {{ form.model_name|add_class:"form-control" }}
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Vehicle Name</label>
+          {{ form.name|add_class:"form-control" }}
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Vehicle Type</label>
+          {{ form.vehicle_type|add_class:"form-control" }}
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Fare</label>
+          {{ form.fare|add_class:"form-control" }}
+        </div>
+        <div class="form-check mb-3">
+          {{ form.available }}
+          <label class="form-check-label">Available</label>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Vehicle Image (.jpg only, max 10MB)</label>
+            {{ form.image|add_class:"form-control" }}
+        </div>
+        <button type="submit" class="btn btn-success w-100">Add Vehicle</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

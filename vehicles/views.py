@@ -74,6 +74,11 @@ def vehicle_list(request):
 
 @user_passes_test(is_admin)
 def admin_dashboard(request):
+    vehicles = Vehicle.objects.all()
+    return render(request, 'vehicles/admin_dashboard.html', {'vehicles': vehicles})
+
+@user_passes_test(is_admin)
+def add_vehicle(request):
     if request.method == 'POST':
         form = VehicleForm(request.POST)
         if form.is_valid():
@@ -82,8 +87,7 @@ def admin_dashboard(request):
             return redirect('admin_dashboard')
     else:
         form = VehicleForm()
-    vehicles = Vehicle.objects.all()
-    return render(request, 'vehicles/admin_dashboard.html', {'form': form, 'vehicles': vehicles})
+    return render(request, 'vehicles/add_vehicle.html', {'form': form})
 
 @user_passes_test(is_admin)
 def delete_vehicle(request, vehicle_id):

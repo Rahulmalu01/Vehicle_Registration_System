@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h2>Pending Payments</h2>
+    <h2 class="text-info">Pending Payments</h2>
 
     {% if unpaid_bookings %}
         <form method="post">
@@ -22,9 +22,9 @@
                     {% for booking in unpaid_bookings %}
                     <tr>
                         <td>{{ booking.vehicle.name }}</td>
-                        <td>{{ booking.booking_date }}</td>
-                        <td>{{ booking.return_date }}</td>
-                        <td>${{ booking.fare }}</td>
+                        <td>{{ booking.booking_date|date:"d M Y" }}</td>
+                        <td>{{ booking.return_date|date:"d M Y" }}</td>
+                        <td>₹{{ booking.fare|floatformat:2 }}</td>
                         <td><a href="{% url 'payment' booking.id %}" class="btn btn-sm btn-success">Pay</a></td>
                     </tr>
                     {% endfor %}
@@ -32,7 +32,7 @@
             </table>
 
             <div class="d-flex justify-content-between">
-                <h5>Total Due: ${{ total_due }}</h5>
+                <h5>Total Due: ₹{{ total_due|floatformat:2 }}</h5>
                 <button type="submit" class="btn btn-primary">Pay All</button>
             </div>
         </form>

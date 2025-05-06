@@ -10,11 +10,27 @@
         <div class="card-body">
             <p class="lead">Amount Due: <strong>${{ amount_due }}</strong></p>
             <img src="{% static 'image/qr_code.jpg' %}" alt="Scan to Pay" class="img-fluid mb-3" style="max-width: 300px;">
-            <form method="post">
+            
+            <form method="post" id="payment-form">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-success">Payment Completed</button>
+                <button type="submit" class="btn btn-success" id="payment-button">Payment Completed</button>
             </form>
+            
+            <div id="loading-spinner" style="display:none;">
+                <img src="{% static 'img/spinner.gif' %}" alt="Loading..." class="img-fluid mt-3">
+            </div>
         </div>
     </div>
 </div>
+
+<script>
+    const paymentForm = document.getElementById('payment-form');
+    const paymentButton = document.getElementById('payment-button');
+    const loadingSpinner = document.getElementById('loading-spinner');
+    
+    paymentForm.addEventListener('submit', function() {
+        paymentButton.disabled = true;
+        loadingSpinner.style.display = 'block';
+    });
+</script>
 {% endblock %}

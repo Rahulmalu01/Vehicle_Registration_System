@@ -17,6 +17,7 @@ urlpatterns = [
     # Vehicle routes
     path('vehicles/', views.vehicle_list, name='vehicle_list'),
     path('bookings/return/<int:booking_id>/', views.return_vehicle, name='return_vehicle'),
+    path('vehicles/add/', views.add_vehicle, name='add_vehicle'),
     path('vehicles/book/<int:vehicle_id>/', views.book_vehicle, name='book_vehicle'),
     path('bookings/<int:booking_id>/return/', views.mark_returned, name='mark_returned'),
 
