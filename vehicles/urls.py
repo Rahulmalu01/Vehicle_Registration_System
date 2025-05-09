@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
-from django.contrib.auth import logout
-from django.shortcuts import redirect
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     # Auth routes
@@ -34,4 +34,4 @@ urlpatterns = [
     # Payment routes
     path('payment/<int:booking_id>/', views.payment_view, name='payment'),
     path('payments-due/', views.payment_due_list, name='payments_due'),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

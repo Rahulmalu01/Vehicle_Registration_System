@@ -8,7 +8,7 @@
         {% for vehicle in vehicles %}
         <div class="col-md-4 mb-4">
             <div class="card h-100">
-                <img src="{% static 'img/' %}{{ vehicle.make}}_{{ vehicle.model_name}}.jpg" class="card-img-top" alt="{{ vehicle.name }}">
+                <img src="{% static 'img/'|add:vehicle.make|add:'_'|add:vehicle.model_name|add:'.jpg' %}" class="card-img-top" alt="{{ vehicle.name }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ vehicle.make }} {{ vehicle.model }}</h5>
                     <p class="card-text"><strong>Name:</strong> {{ vehicle.name }}</p>
