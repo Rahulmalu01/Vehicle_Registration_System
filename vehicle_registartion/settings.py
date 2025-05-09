@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-%uzhctj)b17ut=rpxnh0r%mcijgmb)7ja#n@&hbq3zkz*(2+ve
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'vehicle-registration-system-3.onrender.com',
+    'vehicle-registration-system.onrender.com',
     'localhost',
     '127.0.0.1',
 ]
