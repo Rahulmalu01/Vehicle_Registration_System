@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-%uzhctj)b17ut=rpxnh0r%mcijgmb)7ja#n@&hbq3zkz*(2+ve
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['vehicle-registration-system-3.onrender.com',]
+ALLOWED_HOSTS = [
+    'vehicle-registration-system-3.onrender.com',
+    'localhost',
+    '127.0.0.1',
+]
 
 
 # Application definition
