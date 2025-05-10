@@ -5,12 +5,13 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     # Auth routes
-    path('', views.login_view, name='login'),
+    path('login/', views.login_view, name='login'),
     path('register/', views.register_view, name='register'),
     path('logout/', views.logout_view, name='logout'),
+    path('contact/', views.contact_view, name='contact'),
 
     # Home/dashboard
-    path('home/', views.home_view, name='home'),
+    path('', views.home_view, name='home'),
     path('my_bookings/', views.my_bookings, name='my_bookings'),
     path('bookings/', views.booking_list, name='booking_list'),
 

@@ -1,9 +1,143 @@
 {% extends 'vehicles/base.html' %}
 {% load static %}
-
 {% block content %}
-<div class="container mt-4">
-    <h2 class="text-info">Welcome, {{ user.username }}!</h2>
-    <p>Select an option from the navigation bar.</p>
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static 'image/carousel1.jpg' %}" class="d-block w-100" width="1200" height="450" alt="..." />
+      <div class="carousel-caption d-none d-md-block">
+        <h5 class="display-4">Discover Your Perfect Ride</h5>
+        <p>Explore a wide range of vehicles, from economy cars to luxury SUVs, all in one place.</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'image/carousel2.jpeg' %}" class="d-block w-100" width="1200" height="450" alt="..." />
+      <div class="carousel-caption d-none d-md-block">
+        <h5 class="display-4">Affordable Prices</h5>
+        <p>Get the best value for your money with transparent pricing and no hidden fees.</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'image/carousel3.jpg' %}" class="d-block w-100" width="1200" height="450" alt="..." />
+      <div class="carousel-caption d-none d-md-block">
+        <h5 class="display-4">Your Journey, Our Priority</h5>
+        <p>With 24/7 customer support, your journey is guaranteed to be hassle-free.</p>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
 </div>
+
+<div class="container mt-5 fade" id="companyDetails">
+  <h3 class="text-center text-primary font-weight-bold">About SmartRental</h3>
+  <p class="lead text-center">Your Trusted Partner in Convenient and Affordable Vehicle Rentals</p>
+  <p class="text-muted text-center">We provide an exceptional vehicle rental experience with a diverse fleet, unbeatable prices, and personalized customer service, ensuring every journey is a memorable one.</p>
+  <div class="row mt-4 align-items-center">
+    <div class="col-md-6">
+      <h4 class="text-success">Our Mission</h4>
+      <p>At SmartRental, our mission is simple — to make transportation more accessible and hassle-free for everyone. Whether you're traveling for business or pleasure, we strive to offer high-quality vehicles and a seamless rental process that prioritizes your convenience.</p>
+      <p>We’re dedicated to delivering exceptional customer service, transparent pricing, and a variety of vehicle options to suit your needs, all while maintaining the highest standards of quality and safety.</p>
+    </div>
+    <div class="col-md-6">
+      <img src="{% static 'image/mission.png' %}" class="img-fluid rounded" alt="Mission Image" style="max-width: 80%; height: auto;">
+    </div>
+  </div>
+  <div class="row mt-4 align-items-center">
+    <div class="col-md-6 order-md-2">
+      <h4 class="text-info">Why Choose Us?</h4>
+      <ul>
+        <li><strong>Wide Range of Vehicles:</strong> From compact cars to luxury SUVs, we have something for every need.</li>
+        <li><strong>Competitive Prices:</strong> Get the best deals without compromising on quality.</li>
+        <li><strong>24/7 Customer Support:</strong> Our team is always available to assist you with any concerns or queries.</li>
+        <li><strong>Simple Booking:</strong> Book your vehicle in just a few clicks and enjoy an easy pick-up and drop-off experience.</li>
+        <li><strong>Safety First:</strong> Our vehicles are regularly maintained and fully insured, ensuring your safety on the road.</li>
+      </ul>
+    </div>
+    <div class="col-md-6 order-md-1">
+      <img src="{% static 'image/why_choose_us.png' %}" class="img-fluid rounded" alt="Why Choose Us Image" style="max-width: 100%; height: auto;">
+    </div>
+  </div>
+</div>
+
+<div class="container mt-5">
+  <h3 class="text-center text-primary font-weight-bold">Featured Vehicles</h3>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <img src="{% static 'image/vehicle1.png' %}" class="card-img-top" alt="Compact Car">
+        <div class="card-body">
+          <h5 class="card-title">Compact Car</h5>
+          <p class="card-text">Perfect for city drives, this compact car offers great fuel efficiency and easy parking.</p>
+          <a href="{% url 'vehicle_list' %}" class="btn btn-primary">Book Now</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <img src="{% static 'image/vehicle2.png' %}" class="card-img-top" alt="Luxury SUV">
+        <div class="card-body">
+          <h5 class="card-title">Luxury SUV</h5>
+          <p class="card-text">For those who want style, comfort, and power, this SUV is the perfect choice for a premium experience.</p>
+          <a href="{% url 'vehicle_list' %}" class="btn btn-primary">Book Now</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <img src="{% static 'image/vehicle3.png' %}" class="card-img-top" alt="Family Van">
+        <div class="card-body">
+          <h5 class="card-title">Family Van</h5>
+          <p class="card-text">Spacious and comfortable, this van is ideal for family trips or group outings.</p>
+          <a href="{% url 'vehicle_list' %}" class="btn btn-primary">Book Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-5">
+  <h3 class="text-center text-primary font-weight-bold">Contact Us</h3>
+  <p class="text-center">Have any questions or need assistance? We’re here to help! Reach out to us through the form below.</p>
+
+  <form method="POST" action="{% url 'contact' %}">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="name">Full Name</label>
+      <input type="text" class="form-control" id="name" name="name" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" class="form-control" id="email" name="email" required>
+    </div>
+    <div class="form-group">
+      <label for="message">Message</label>
+      <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+  </form>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const fadeElements = document.querySelectorAll('.fade');
+    fadeElements.forEach((el, index) => {
+      setTimeout(() => {
+        el.classList.add('show');
+      }, index * 600);
+    });
+  });
+</script>
+
 {% endblock %}

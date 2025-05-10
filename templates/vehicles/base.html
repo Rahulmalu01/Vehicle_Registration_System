@@ -6,17 +6,28 @@
     {% load static %}
 </head>
 <body>
-    <h1 class="text-center bg-primary text-white py-3">Vehicle Booking System</h1>
-    {% if request.path != '/' and request.path != '/register/' %}
-        <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
-            <div class="container-fluid">
-                <a class="navbar-brand text-primary" href="#">Vehicle Booking System</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
+    <div class="container-fluid bg-black py-3">
+        <div class="row align-items-center">
+            <div class="col-auto">
+                <img src="{% static 'image/smartrental_logo.png' %}" alt="Smartrental Logo" style="height: 60px; width: 220px;">
+            </div>
+            <div class="col text-center">
+                <h1 class="m-0" style="background: linear-gradient(1800deg, #00ff88, #00c3ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: bold;">SMARTRENTAL</h1>
+            </div>
+        </div>
+    </div>
+
+    {% if request.path != '/login/' and request.path != '/register/' %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand text-primary" href="#">Vehicle Booking System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    {% if user.is_authenticated %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'home' %}">Home</a>
                         </li>
@@ -48,14 +59,24 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                         </li>
-                    </ul>
-                </div>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'register' %}">Register</a>
+                        </li>
+                    {% endif %}
+                </ul>
             </div>
-        </nav>
+        </div>
+    </nav>
     {% endif %}
-    <div class="container mt-4">
+
+    <div>
         {% block content %}{% endblock %}
     </div>
+
     <!-- Bootstrap JS -->
     <script src="/static/javascript/bootstrap_bundle_min.js"></script>
 </body>
