@@ -80,7 +80,7 @@ Visit: [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin) and log in usi
 ```
 vehicle_registartion/
 ├── manage.py
-├── project_name/
+├── vehicle_registartion/
 │   ├── settings.py
 │   ├── urls.py
 │   └── ...
